@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href='https://fonts.googleapis.com/css?family=Gruppo' rel='stylesheet'>
 <style>
- body {
- font-family: 'Gruppo';font-size: 22px;
-}
+	body {
+	font-family: 'Gruppo';font-size: 22px;
+	}
 </style>
     <meta charset = "UTF-8">
     <title>The Game of Life</title>
@@ -21,9 +20,11 @@
         <input type = "number" id = "tableWidth" name = "width" min = "3" max = "50" value = "20">
     </form>
 
-    <input type = "color" id = "colorPicker" value = "#000000" onclick = "GetColor('colorPicker')">
-    <button type = "submit" id = "sizeButton">Genereeri</button>
+    <input type = "color" id = "colorPicker" value = "#000000">
+    <button type = "submit" id = "generateButton">Genereeri</button>
+    <button id = "stepButton">1 Samm</button>
     <button id = "playButton">Mängi</button>
+    <button id = "pauseButton">Paus</button>
     <p>
         Generatsioon: <span
         id="display">0</span>
@@ -31,7 +32,7 @@
 
     <table id="gameOfLifeGrid">
     </table>
-	
+
     <!-- JQuery vaja enne .js faili laadida. Veel pole kindel kas vaja läheb -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src = "GOL_code.js"></script>
