@@ -5,7 +5,8 @@ var arr, arrDup;
 var count;
 var cell;
 var generation;
-var simulationState = 1;
+var simulationState = 0;
+var sliderAmount;
 
 document.getElementById("generateButton").addEventListener("click", getTableSizes);
 document.getElementById("stepButton").addEventListener("click", stepSimulation);
@@ -23,17 +24,19 @@ function getTableSizes() {
 }
 
 function runSimulation() {
-    simulationState = 1;
-    runSimulation2();
+    if (simulationState != 1) {
+        simulationState = 1;
+        runSimulation2();
+    }
 }
 
 function runSimulation2() {
     if (simulationState == 1) {
         stepSimulation();
     } else {
-        return;
+        return; // Naaseme funktsioonist, et pausile pannes ja uuesti käivitades ei käivituks sama uuesti ehk topelt
     }
-    setTimeout(runSimulation2, 10);
+    setTimeout(runSimulation2, sliderAmount);
 }
 
 function pauseSimulation() {
@@ -177,60 +180,24 @@ function updateCounter() {
     disp.innerHTML = generation;
 }
 
-
-
-function colorCells() {
-    chosenColor = document.getElementById("colorPicker").value;
+function updateSlider(slideAmount) {
+    if (slideAmount == 0) {
+        sliderAmount = 600;
+    } else if (slideAmount == 1) {
+        sliderAmount = 500;
+    } else if (slideAmount == 2) {
+        sliderAmount = 400;
+    } else if (slideAmount == 3) {
+        sliderAmount = 300;
+    } else if (slideAmount == 4) {
+        sliderAmount = 200;
+    } else if (slideAmount == 5) {
+        sliderAmount = 100;
+    } else if (slideAmount == 6) {
+        sliderAmount = 0;
+    }
+    document.getElementById("sliderAmount").innerHTML = "Kiirus: " + slideAmount;
 }
-
-
-
-
 
 window.onload = getTableSizes();
-
-/*
-function makeGrid() {
-    let tbl = document.getElementById("pixelCanvas");
-
-    for (let i = 0; i < 11; i++) {
-        let myRow = document.createElement("tr");
-        myRow.id = "row" + i;
-
-        tbl.appendChild(myRow);
-        let rowW = document.getElementById("row" + i);
-
-        for (let j = 0; j < 11; j++) {
-            let myCell = document.createElement("td");
-            rowW.appendChild(myCell);
-        }
-    }
-}
-
-$('#sizePicker').submit(function (event) {
-    event.preventDefault();
-    height = $('#inputHeight').val();
-    width = $('#inputWidth').val();
-    makeGrid(height, width);
-})
-
-function makeGrid(x, y) {
-    $('tr').remove();
-
-    for (var i = 1; i <= x; i++) {
-        $('#gameOfLifeGrid').append('<tr id = row' + i + '></tr>');
-        for (var j = 1; j <= y; j++) {
-            $('#row' + i).append('<td></td>');
-        }
-    }
-    $('td').click(function changeColor(){
-        color = $('#colorPicker').val();
-
-        if ($(this).attr('style')) {
-            $(this).removeAttr('style');
-        } else {
-            $(this).attr('style', 'background-color:' + color);
-        }
-    })
-}
-*/
+window.onlload = updateSlider(3);
