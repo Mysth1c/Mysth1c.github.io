@@ -15,25 +15,25 @@
     <h2>Vali ruudustiku suurus</h2>
     <form id = "sizePicker" onsubmit = "return false">
         Kõrgus:
-        <input type = "number" id = "tableHeight" name = "height" min = "3" max = "50" value = "20">
+        <input type = "number" id = "tableHeight" name = "height" min = "3" max = "50" value = "30">
         Laius:
-        <input type = "number" id = "tableWidth" name = "width" min = "3" max = "50" value = "20">
+        <input type = "number" id = "tableWidth" name = "width" min = "3" max = "50" value = "30">
+        <button type = "submit" id = "generateButton">Genereeri</button>
     </form>
-
-    <input type = "color" id = "colorPicker" value = "#000000">
-    <button type = "submit" id = "generateButton">Genereeri</button>
-    <button id = "stepButton">1 Samm</button>
-    <button id = "playButton">Mängi</button>
-    <button id = "pauseButton">Paus</button>
-    <p>
-        Generatsioon: <span
-        id="display">0</span>
-    </p>
-
+    <div>
+        <button id = "stepButton">Samm</button>
+        <button id = "playButton">Mängi</button>
+        <button id = "pauseButton">Paus</button>
+    </div>
+    <input type="range" id = "slider" name = "range1" min = "0" max = "6" value = "3" step = "1" onchange="updateSlider(this.value)">
+    <div id = "sliderAmount"></div>
     <table id="gameOfLifeGrid">
     </table>
-
-    <!-- JQuery vaja enne .js faili laadida. Veel pole kindel kas vaja läheb -->
+    <p>
+        Generatsioon:
+        <span id="display">0</span>
+    </p>
+    <!-- JQuery vaja enne .js faili laadida. -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src = "GOL_code.js"></script>
 </body>
