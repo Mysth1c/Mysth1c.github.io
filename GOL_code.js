@@ -1,38 +1,22 @@
 var tableWidth, tableHeight;
+var table;
 var i, j;
 var arr, arrDup;
 var count;
 var generation;
 
-document.getElementById("sizeButton").addEventListener("click", updateTable);
+document.getElementById("sizeButton").addEventListener("click", getTableSizes);
 document.getElementById("playButton").addEventListener("click", runSimulation);
 
 function getTableSizes() {
+
     tableWidth = parseInt(document.getElementById("tableWidth").value);
     tableHeight = parseInt(document.getElementById("tableHeight").value);
     generation = 0;
     updateCounter();
-    arr = create2DArray();
+    create2DArray();
+    $("tr").remove();
     createTable();
-}
-
-function updateTable() {
-    tableWidth = parseInt(document.getElementById("tableWidth").value); // parseInt ehk muudame tüübilt täisarvuks
-    tableHeight = parseInt(document.getElementById("tableHeight").value);
-    generation = 0;
-    updateCounter();
-    arr = create2DArray();
-    var table = document.getElementById("gameOfLifeGrid");
-    for (var i = 1; i < tableHeight + 1; i++) {
-        for (var j = 1; j < tableWidth + 1; j++) {
-            cell = document.getElementById(i + "-" + j);
-            if (arr[i][j] == 0) {
-                cell.setAttribute("class", "dead");
-            } else {
-                cell.setAttribute("class", "live");
-            }
-        }
-    }
 }
 
 function create2DArray() {
@@ -45,7 +29,6 @@ function create2DArray() {
     }
     createImaginaryEdges();
     fillDuplicateArray();
-    return arr;
 }
 
 function runSimulation() {
@@ -141,8 +124,7 @@ function fillDuplicateArray() {
 }
 
 function createTable() {
-    var table = document.getElementById("gameOfLifeGrid");
-
+    table = document.getElementById("gameOfLifeGrid");
     for (var i = 1; i < tableHeight + 1; i++) {
         var tr = document.createElement("tr"); // Loome uue rea, kõik identsed, sest neid pöördumisel ei kasuta
         for (var j = 1; j < tableWidth + 1; j++) {//
