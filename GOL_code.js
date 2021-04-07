@@ -3,13 +3,16 @@ var table;
 var i, j;
 var arr, arrDup;
 var count;
+var cell;
 var generation;
+var simulationState = 1;
 
-document.getElementById("sizeButton").addEventListener("click", getTableSizes);
+document.getElementById("generateButton").addEventListener("click", getTableSizes);
+document.getElementById("stepButton").addEventListener("click", stepSimulation);
 document.getElementById("playButton").addEventListener("click", runSimulation);
+document.getElementById("pauseButton").addEventListener("click", pauseSimulation);
 
 function getTableSizes() {
-
     tableWidth = parseInt(document.getElementById("tableWidth").value);
     tableHeight = parseInt(document.getElementById("tableHeight").value);
     generation = 0;
@@ -17,6 +20,24 @@ function getTableSizes() {
     create2DArray();
     $("tr").remove();
     createTable();
+}
+
+function runSimulation() {
+    simulationState = 1;
+    runSimulation2();
+}
+
+function runSimulation2() {
+    if (simulationState == 1) {
+        stepSimulation();
+    } else {
+        return;
+    }
+    setTimeout(runSimulation2, 10);
+}
+
+function pauseSimulation() {
+    simulationState = 0;
 }
 
 function create2DArray() {
@@ -31,7 +52,7 @@ function create2DArray() {
     fillDuplicateArray();
 }
 
-function runSimulation() {
+function stepSimulation() {
     generation++;
     updateCounter();
     createImaginaryEdges();
@@ -128,7 +149,7 @@ function createTable() {
     for (var i = 1; i < tableHeight + 1; i++) {
         var tr = document.createElement("tr"); // Loome uue rea, kõik identsed, sest neid pöördumisel ei kasuta
         for (var j = 1; j < tableWidth + 1; j++) {//
-            var cell = document.createElement("td"); // Reealselt nähtav rakk, mitte lihtsalt masssiivielement
+            cell = document.createElement("td"); // Reealselt nähtav rakk, mitte lihtsalt masssiivielement
             cell.setAttribute("id", i + "-" + j);
             if (arr[i][j] == 0) {
                 cell.setAttribute("class", "dead");
@@ -155,6 +176,15 @@ function updateCounter() {
     var disp = document.getElementById("display");
     disp.innerHTML = generation;
 }
+
+
+
+function colorCells() {
+    chosenColor = document.getElementById("colorPicker").value;
+}
+
+
+
 
 
 window.onload = getTableSizes();
